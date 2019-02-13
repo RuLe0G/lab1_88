@@ -12,7 +12,7 @@ namespace Lab1
         {
             Console.WriteLine("Hello ");
             Console.WriteLine("Да!");
-
+            Console.WriteLine("qwerty");
             Console.ReadKey();
         }
     }
