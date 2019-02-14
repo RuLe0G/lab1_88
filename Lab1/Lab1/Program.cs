@@ -35,12 +35,16 @@ namespace Test
                             swap();
                             break;
                         case "4":
-                            prost();
+                            mas();
                             break;
                         case "5":
-                            month();
+                            prost();
                             break;
                         case "6":
+                            month();
+                            break;
+                        case "7":
+                            Struc();
                             break;
                         default:
                             break;
@@ -56,9 +60,10 @@ namespace Test
             Console.WriteLine("1. Таблица умножения");
             Console.WriteLine("2. Является ли введённый символ цифрой?");
             Console.WriteLine("3. Обмен значениями");
-            Console.WriteLine("4. Простые числа от 0 до числа, введённого пользователем");
-            Console.WriteLine("5. Название времени года, соответствующему номеру месяца, введённому пользователем");
-            Console.WriteLine("6. Ничего");
+            Console.WriteLine("4. Массив со случайными числами в диапазоне, введённом пользователем");
+            Console.WriteLine("5. Простые числа от 0 до числа, введённого пользователем");
+            Console.WriteLine("6. Название времени года, соответствующему номеру месяца, введённому пользователем");
+            Console.WriteLine("7. Пока ничего");
             Console.WriteLine("esc. Выход");
         }
 
@@ -67,7 +72,7 @@ namespace Test
             Console.Clear();
             for (int a = 2; a < 11; a++)
             {
-                for (int b = 2; b < 11; b++)
+                for (int b = 1; b < 11; b++)
                 {
                     int p = a * b;
                     Console.WriteLine("---------------");
@@ -125,9 +130,9 @@ namespace Test
         {
             Console.Clear();
             Random rnd = new Random();
-            Console.Write("Введите минимальное значение");
+            Console.Write("Введите минимальное значение ");
             int a = int.Parse(Console.ReadLine());
-            Console.Write("Введите максимальное значение");
+            Console.Write("Введите максимальное значение ");
             int b = int.Parse(Console.ReadLine());
             int[,] mas = new int[5, 5];
             for (int i = 0; i < 5; i++)
@@ -214,15 +219,91 @@ namespace Test
         struct Sstudent
         {
             public string fio;
-            public byte performance;
+            public byte performance1;
         }
+
 
         static void Struc()
         {
-            Sstudent Stud = new Sstudent();
-            Stud.fio = "Jo Jo";
-            Stud.performance = 5;
+            Sstudent[] students = new Sstudent[10];
+            //Inpstud(ref students[i].fio, ref students[i].performance1, ref students[i].performance2);
+
+            int i = 0;
+            int j = 0;
+            do
+
+            {
+            up1:
+                Console.WriteLine("Вы хотите добавить студента? (Вы можите добавить ещё {0} студентов)", (10 - i));
+                Console.WriteLine("1 - да | 0 - нет");
+
+                ConsoleKeyInfo a;
+                a = Console.ReadKey(false);
+                switch (a.KeyChar.ToString())
+                {
+                    case "1":
+                        Inpstud(ref students[i].fio, ref students[i].performance1);
+                        j = i + 1;
+                        break;
+                    case "0":
+                        i = 10;
+
+                        break;
+                    default:
+                        goto up1;
+
+                }
+                i++;
+            } while (i < 10);
+        up2:
+            Console.WriteLine("Желаете увидеть список студентов?");
+            Console.WriteLine("2 - показать только лучшего | 1 - показать всех | 0 - нет");
+            ConsoleKeyInfo cl;
+            cl = Console.ReadKey(false);
+            switch (cl.KeyChar.ToString())
+            {
+                case "2":
+                    int b=0;
+                    for (int m = 0; m != j; m++ ){
+                        if (students[m].performance1 > b) b = m;
+                    }
+                    Outstud(students[b].fio, students[b].performance1);
+                    Console.ReadKey();
+                    break;
+
+                case "1":
+                    for (int m = 0; m != j; m++)
+                    {
+                        Outstud(students[m].fio, students[m].performance1);
+
+                    }
+                    Console.ReadKey();
+                    break;
+                case "0":
+                    break;
+                default:
+                    goto up2;
+
+            }
 
         }
+
+        static void Inpstud(ref string FIO, ref byte a)
+        {
+            Console.WriteLine("Введите ФИО студента.. ");
+            FIO = Console.ReadLine();
+            Console.WriteLine("Введите его оценки по чему-то.. ");
+            a = byte.Parse(Console.ReadLine());
+        }
+
+        static void Outstud(string FIO, byte a)
+        {
+            Console.WriteLine("ФИО студента.. {0} ", FIO);
+            Console.WriteLine("Оценка по чему-то.. {0} ", a);
+
+        }
+
+
     }
+
 }
